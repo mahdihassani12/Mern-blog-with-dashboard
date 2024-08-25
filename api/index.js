@@ -15,6 +15,11 @@ app.use(errorHandler);
 
 // initialize the routes
 import users from "./routes/users.js";
+import tags from "./routes/tags.js";
+import categories from "./routes/categories.js";
+
 app.use("/api/users", users);
+app.use("/api/tags", tags);
+app.use("/api/categories", categories);
 
 app.listen(port, () => console.log(`Server is runing on port ${port}`));

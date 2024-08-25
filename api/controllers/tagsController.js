@@ -28,7 +28,7 @@ const createTag = async (req, res, next) => {
 // Delete a tag by ID
 const deleteTag = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
     const userId = req.user._id;
 
     // Find the tag by ID and userId
@@ -44,7 +44,9 @@ const deleteTag = async (req, res, next) => {
     // Delete the tag
     await tag.deleteOne();
 
-    res.status(200).json({ message: "Tag deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "Tag deleted successfully", success: "true" });
   } catch (error) {
     next(error); // Pass the error to the error handler
   }

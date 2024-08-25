@@ -28,7 +28,7 @@ const createCategory = async (req, res, next) => {
 // Delete a category by ID
 const deleteCategory = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
     const userId = req.user._id; // Assuming you have `req.user` populated with the authenticated user's details
 
     // Find the category by ID and userId
@@ -44,7 +44,9 @@ const deleteCategory = async (req, res, next) => {
     // Delete the category
     await category.deleteOne();
 
-    res.status(200).json({ message: "Category deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "Category deleted successfully", success: "true" });
   } catch (error) {
     next(error); // Pass the error to the error handler
   }
