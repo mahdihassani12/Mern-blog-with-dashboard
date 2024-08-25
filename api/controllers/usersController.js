@@ -78,6 +78,31 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+// delete user
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+    // Check if user exists
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
+
+    // Delete user
+    await User.findOneAndDelete({ _id: id });
+
+    // Send success response
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    next(error); // Pass the error to the error handler
+  }
+};
+
 // authenticate a user on validation
 const getMe = async (req, res, next) => {
   res.status(200).json(req.user);
@@ -90,4 +115,4 @@ const generateToken = (id) => {
   });
 };
 
-export { registerUser, loginUser, getMe };
+export { registerUser, loginUser, getMe, deleteUser };
