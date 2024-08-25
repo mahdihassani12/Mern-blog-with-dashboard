@@ -10,6 +10,11 @@ const tagSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a description"],
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "Please add a user"],
+    },
   },
   {
     timestamps: true,
