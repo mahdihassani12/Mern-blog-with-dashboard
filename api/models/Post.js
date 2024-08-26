@@ -24,7 +24,6 @@ const postSchema = mongoose.Schema(
     ],
     featuredImage: {
       type: String,
-      required: [true, "Please add a featured image"],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

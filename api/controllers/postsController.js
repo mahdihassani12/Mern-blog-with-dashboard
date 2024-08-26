@@ -26,9 +26,9 @@ const getPostsByAuthUser = async (req, res, next) => {
 // Create a new post (if needed)
 const createPost = async (req, res, next) => {
   try {
-    const { title, descriptions, categories, tags, featuredImage } = req.body;
+    const { title, description, categories, tags, featuredImage } = req.body;
 
-    if (!title || !descriptions) {
+    if (!title || !description) {
       res.status(400);
       throw new Error("Please add all required fields");
     }
@@ -36,7 +36,7 @@ const createPost = async (req, res, next) => {
     const post = new Post({
       user: req.user._id,
       title,
-      descriptions,
+      description,
       categories,
       tags,
       featuredImage,
@@ -68,10 +68,10 @@ const updatePost = async (req, res, next) => {
       throw new Error("User not authorized to update this post");
     }
 
-    const { title, descriptions, categories, tags, featuredImage } = req.body;
+    const { title, description, categories, tags, featuredImage } = req.body;
 
     post.title = title || post.title;
-    post.descriptions = descriptions || post.descriptions;
+    post.description = description || post.description;
     post.categories = categories || post.categories;
     post.tags = tags || post.tags;
     post.featuredImage = featuredImage || post.featuredImage;
