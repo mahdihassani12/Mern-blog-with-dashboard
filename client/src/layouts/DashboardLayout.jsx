@@ -6,11 +6,21 @@ import Sidebar from "../components/dashboard/Sidebar";
 
 const DashboardLayout = () => {
   return (
-    <div>
+    <div className="wrapper">
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <Sidebar />
+      <div className="content-wrapper">
+        <div className="content-header">
+          <div className="container-fluid">
+            Page Header
+          </div>
+        </div>
+        <div className="content">
+          <div className="container-fluid">
+            <Outlet />
+          </div>
+        </div>
+      </div>
       <Footer />
     </div>
   );
