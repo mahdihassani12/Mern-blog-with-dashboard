@@ -9,7 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./app/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
