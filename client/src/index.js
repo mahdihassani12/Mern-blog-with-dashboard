@@ -6,6 +6,8 @@ import FrontendLayout from "./layouts/FrontendLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./pages/frontend/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +16,8 @@ root.render(
       {/* Frontend Routes */}
       <Route path="/" element={<FrontendLayout />}>
         <Route index element={<Home />} /> {/* /frontend home page */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Route>
 
       {/* Dashboard Routes */}
