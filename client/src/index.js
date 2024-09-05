@@ -8,22 +8,26 @@ import Home from "./pages/frontend/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      {/* Frontend Routes */}
-      <Route path="/" element={<FrontendLayout />}>
-        <Route index element={<Home />} /> {/* /frontend home page */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        {/* Frontend Routes */}
+        <Route path="/" element={<FrontendLayout />}>
+          <Route index element={<Home />} /> {/* /frontend home page */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-      {/* Dashboard Routes */}
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} /> {/* /dashboard home page */}
-      </Route>
-    </Routes>
-  </BrowserRouter>
+        {/* Dashboard Routes */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} /> {/* /dashboard home page */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
