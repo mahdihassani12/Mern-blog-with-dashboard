@@ -32,6 +32,7 @@ export const registerUser = createAsyncThunk(
 // logout operation
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   localStorage.removeItem("user");
+  return;
 });
 
 // redux initial states
@@ -50,6 +51,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setUser(state, action) {
+      state.user = action.payload;
+    },
     reset(state) {
       state.isLoading = false;
       state.isError = false;
