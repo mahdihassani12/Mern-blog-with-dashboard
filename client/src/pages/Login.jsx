@@ -9,7 +9,7 @@ function Login() {
         <input
           type="text"
           className="form-control"
-          name="username"
+          name="email"
           placeholder="Email Address"
           required
           autoFocus

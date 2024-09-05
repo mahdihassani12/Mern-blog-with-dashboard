@@ -44,10 +44,10 @@ body {
   z-index: 2;
 }
 
-input[type="text"] {
+input {
   margin-bottom: 5px;
 }
 
-input[type="password"] {
-  margin-bottom: 20px;
+select {
+  margin-bottom: 5px;
 }
