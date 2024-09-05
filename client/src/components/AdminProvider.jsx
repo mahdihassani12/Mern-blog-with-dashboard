@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { setUser } from "./features/auth/authSlice";
+import { setUser } from "../features/auth/authSlice";
 
 const AdminProvider = () => {
   const { user, isLoading } = useSelector((state) => state.auth);

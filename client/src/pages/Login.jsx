@@ -32,7 +32,7 @@ function Login() {
   }, [isSuccess, navigate, dispatch]);
 
   return (
-    <div className="wrapper">
+    <div className="authWrapper">
       <form className="form-signin" onSubmit={onSubmit}>
         <h2 className="form-signin-heading">Please login</h2>
         <input
