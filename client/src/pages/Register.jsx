@@ -2,7 +2,7 @@ import "../assets/auth.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, reset } from "../features/auth/authSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -10,6 +10,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -22,10 +23,15 @@ function Register() {
 
   // Reset the state when the component unmounts or when isSuccess changes
   useEffect(() => {
+    if (isSuccess) {
+      navigate("/login"); // Navigate to login page on successful registration
+      dispatch(reset());
+    }
+
     return () => {
       dispatch(reset()); // Clear state on unmount
     };
-  }, [dispatch]);
+  }, [isSuccess, navigate, dispatch]);
 
   return (
     <div className="wrapper">
