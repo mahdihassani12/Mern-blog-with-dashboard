@@ -2,6 +2,7 @@ import "../assets/auth.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, reset } from "../features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -54,6 +55,10 @@ function Login() {
         >
           Login
         </button>
+        <div className="authLink">
+          <p>Don't have an account?</p>
+          <Link to="/register">Register here</Link>
+        </div>
         {isError && <div>{message}</div>}
       </form>
     </div>

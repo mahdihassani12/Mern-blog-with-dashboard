@@ -2,6 +2,7 @@ import "../assets/auth.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, reset } from "../features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -76,6 +77,10 @@ function Register() {
         >
           Register
         </button>
+        <div className="authLink">
+          <p>Do you have an account?</p>
+          <Link to="/login">Login here</Link>
+        </div>
         {isError && <div>{message}</div>}
         {isSuccess && <div>Registration successful!</div>}
       </form>
