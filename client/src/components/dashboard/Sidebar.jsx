@@ -22,7 +22,6 @@ function Sidebar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  console.log(isDropdownOpen);
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link text-center">
