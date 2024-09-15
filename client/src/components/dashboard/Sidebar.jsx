@@ -17,10 +17,12 @@ function Sidebar() {
   };
 
   // Toggle dropdown
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.preventDefault(); // Prevent default anchor behavior to stop page refresh
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  console.log(isDropdownOpen);
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link text-center">
@@ -30,7 +32,9 @@ function Sidebar() {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="info">
             <Link to="/profile" className="d-block">
-              {user ? user.name.charAt(0).toUpperCase() + user.name.slice(1) : "Admin"}
+              {user
+                ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                : "Admin"}
             </Link>
           </div>
         </div>
@@ -41,31 +45,35 @@ function Sidebar() {
             role="menu"
             data-accordion="false"
           >
+            {/* Dropdown menu */}
             <li className={`nav-item ${isDropdownOpen ? "menu-open" : ""}`}>
-              <a href="#" className={`nav-link ${isDropdownOpen ? "active" : ""}`} onClick={toggleDropdown}>
+              <a
+                href="#"
+                className={`nav-link ${isDropdownOpen ? "active" : ""}`}
+                onClick={toggleDropdown}
+              >
                 <i className="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Starter Pages
                   <i className="right fas fa-angle-left"></i>
                 </p>
               </a>
-              {isDropdownOpen && (
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <Link to="/active" className="nav-link active">
-                      <i className="far fa-circle nav-icon"></i>
-                      <p>Active Page</p>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/inactive" className="nav-link">
-                      <i className="far fa-circle nav-icon"></i>
-                      <p>Inactive Page</p>
-                    </Link>
-                  </li>
-                </ul>
-              )}
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/active" className="nav-link active">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Active Page</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/inactive" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Inactive Page</p>
+                  </Link>
+                </li>
+              </ul>
             </li>
+            {/* Simple Link */}
             <li className="nav-item">
               <Link to="/simple-link" className="nav-link">
                 <i className="nav-icon fas fa-th"></i>
@@ -80,7 +88,12 @@ function Sidebar() {
               <button
                 onClick={handleLogout}
                 className="nav-link"
-                style={{ background: "none", border: "none", color: "#fff", cursor: "pointer" }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
               >
                 <i className="nav-icon fas fa-sign-out-alt"></i>
                 <p>Logout</p>
