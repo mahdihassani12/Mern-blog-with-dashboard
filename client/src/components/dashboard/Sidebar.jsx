@@ -1,10 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutUser, reset } from "../../features/auth/authSlice";
 
 function Sidebar() {
-  // Retrieve user data from Redux store
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Add state for the dropdown
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Logout handler
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    dispatch(reset());
+    navigate("/");
+  };
+
+  // Toggle dropdown
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -26,28 +41,30 @@ function Sidebar() {
             role="menu"
             data-accordion="false"
           >
-            <li className="nav-item menu-open">
-              <Link to="/dashboard" className="nav-link active">
+            <li className={`nav-item ${isDropdownOpen ? "menu-open" : ""}`}>
+              <a href="#" className={`nav-link ${isDropdownOpen ? "active" : ""}`} onClick={toggleDropdown}>
                 <i className="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Starter Pages
                   <i className="right fas fa-angle-left"></i>
                 </p>
-              </Link>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link to="/active" className="nav-link active">
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Active Page</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/inactive" className="nav-link">
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Inactive Page</p>
-                  </Link>
-                </li>
-              </ul>
+              </a>
+              {isDropdownOpen && (
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <Link to="/active" className="nav-link active">
+                      <i className="far fa-circle nav-icon"></i>
+                      <p>Active Page</p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/inactive" className="nav-link">
+                      <i className="far fa-circle nav-icon"></i>
+                      <p>Inactive Page</p>
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
             <li className="nav-item">
               <Link to="/simple-link" className="nav-link">
@@ -57,6 +74,17 @@ function Sidebar() {
                   <span className="right badge badge-danger">New</span>
                 </p>
               </Link>
+            </li>
+            {/* Logout Button */}
+            <li className="nav-item">
+              <button
+                onClick={handleLogout}
+                className="nav-link"
+                style={{ background: "none", border: "none", color: "#fff", cursor: "pointer" }}
+              >
+                <i className="nav-icon fas fa-sign-out-alt"></i>
+                <p>Logout</p>
+              </button>
             </li>
           </ul>
         </nav>
