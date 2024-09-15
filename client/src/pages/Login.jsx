@@ -10,7 +10,8 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  // Extract auth states from Redux
+  const { isLoading, isError, isSuccess, message, user } = useSelector(
     (state) => state.auth
   );
 
@@ -19,15 +20,22 @@ function Login() {
     dispatch(loginUser({ email, password }));
   };
 
+  // Redirect to dashboard if the user is either authenticated in Redux or found in localStorage
+  useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/dashboard"); // Navigate to dashboard if authenticated in Redux or localStorage
+    }
+  }, [user, isSuccess, navigate]);
+
   // Reset the state when the component unmounts or when isSuccess changes
   useEffect(() => {
     if (isSuccess) {
-      navigate("/dashboard"); // Navigate to dashboard page on successful login
+      navigate("/dashboard");
       dispatch(reset());
     }
 
     return () => {
-      dispatch(reset()); // Clear state on unmount
+      dispatch(reset());
     };
   }, [isSuccess, navigate, dispatch]);
 
@@ -66,7 +74,6 @@ function Login() {
           <Link to="/register">Register here</Link>
         </div>
         {isError && <div>{message}</div>}
-        {isSuccess && <div>Login successful!</div>}
       </form>
     </div>
   );

@@ -12,7 +12,8 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  // Extract auth states from Redux
+  const { isLoading, isError, isSuccess, message, user } = useSelector(
     (state) => state.auth
   );
 
@@ -20,6 +21,13 @@ function Register() {
     e.preventDefault();
     dispatch(registerUser({ name, email, password, role }));
   };
+
+  // Redirect to dashboard if the user is already authenticated or found in localStorage
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard"); // Navigate to dashboard if user is authenticated or exists in localStorage
+    }
+  }, [user, navigate]);
 
   // Reset the state when the component unmounts or when isSuccess changes
   useEffect(() => {

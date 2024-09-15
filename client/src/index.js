@@ -10,8 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Provider } from "react-redux";
 import store from "./app/store";
-import AuthProvider from "./components/AuthProvider"; // Import AuthProvider
-import AdminProvider from "./components/AdminProvider"; // Import AdminProvider
+import AuthProvider from "./components/AuthProvider"; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,13 +29,6 @@ root.render(
         <Route element={<AuthProvider />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} /> {/* /dashboard home page */}
-          </Route>
-        </Route>
-
-        {/* Admin Protected Routes (optional) */}
-        <Route element={<AuthProvider />}>
-          <Route element={<AdminProvider />}>
-            {/* Add your admin routes here */}
           </Route>
         </Route>
 
