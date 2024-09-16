@@ -11,9 +11,21 @@ import Register from "./pages/Register";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import AuthProvider from "./components/AuthProvider";
-import CreatePost from "./pages/dashboard/posts/CreatePost";
-import EditPost from "./pages/dashboard/posts/EditPost";
-import Posts from "./pages/dashboard/posts/Posts";
+
+// Import Post components
+import IndexPosts from "./pages/dashboard/posts/index"; // Posts list
+import CreatePost from "./pages/dashboard/posts/create"; // Create Post
+import EditPost from "./pages/dashboard/posts/edit"; // Edit Post
+
+// Import Tag components
+import IndexTags from "./pages/dashboard/tags/index"; // Tags list
+import CreateTag from "./pages/dashboard/tags/create"; // Create Tag
+import EditTag from "./pages/dashboard/tags/edit"; // Edit Tag
+
+// Import Category components
+import IndexCategories from "./pages/dashboard/categories/index"; // Categories list
+import CreateCategory from "./pages/dashboard/categories/create"; // Create Category
+import EditCategory from "./pages/dashboard/categories/edit"; // Edit Category
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -31,9 +43,21 @@ root.render(
         <Route element={<AuthProvider />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path="posts" element={<Posts />} />
-            <Route path="addPost" element={<CreatePost />} />
-            <Route path="editPost" element={<EditPost />} />
+
+            {/* Posts Routes */}
+            <Route path="posts" element={<IndexPosts />} />
+            <Route path="posts/create" element={<CreatePost />} />
+            <Route path="posts/edit/:postId" element={<EditPost />} />
+
+            {/* Tags Routes */}
+            <Route path="tags" element={<IndexTags />} />
+            <Route path="tags/create" element={<CreateTag />} />
+            <Route path="tags/edit/:tagId" element={<EditTag />} />
+
+            {/* Categories Routes */}
+            <Route path="categories" element={<IndexCategories />} />
+            <Route path="categories/create" element={<CreateCategory />} />
+            <Route path="categories/edit/:categoryId" element={<EditCategory />} />
           </Route>
         </Route>
       </Routes>
