@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { createCategory } from "../../../features/categories/categoriesSlice";
 
 function Create() {
@@ -11,6 +11,8 @@ function Create() {
   const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { token } = useSelector((state) => state.auth.user);
   const { loading, error, success } = useSelector((state) => state.categories);
 
@@ -24,6 +26,7 @@ function Create() {
     e.preventDefault();
     // Dispatch the createCategory action with title and description
     dispatch(createCategory({ title, description, token }));
+    navigate("/dashboard/categories");
   };
 
   return (

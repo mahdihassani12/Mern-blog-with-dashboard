@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutUser, reset } from "../../features/auth/authSlice";
 
 function Sidebar() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Add state for the dropdown
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,12 +13,6 @@ function Sidebar() {
     dispatch(logoutUser());
     dispatch(reset());
     navigate("/");
-  };
-
-  // Toggle dropdown
-  const toggleDropdown = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior to stop page refresh
-    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
