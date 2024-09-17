@@ -67,7 +67,7 @@ function Index() {
                   <tbody>
                     {categories?.length > 0 ? (
                       categories.map((category, idx) => (
-                        <tr key={category.id}>
+                        <tr key={ idx }>
                           <td>{idx + 1}</td>
                           <td>{category.title}</td>
                           <td>{truncateDescription(category.description)}</td>
