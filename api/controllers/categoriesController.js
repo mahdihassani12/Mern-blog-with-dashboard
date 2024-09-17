@@ -3,7 +3,7 @@ import Category from "../models/Category.js";
 // List all categories (for admin or general purposes)
 const categories = async (req, res, next) => {
   try {
-    const allCategories = await Category.find();
+    const allCategories = await Category.find().sort({ createdAt: -1 }); // Sort by `createdAt` in descending order
     res.status(200).json(allCategories);
   } catch (error) {
     next(error); // Pass the error to the error handler
@@ -14,7 +14,7 @@ const categories = async (req, res, next) => {
 const categoriesByUser = async (req, res, next) => {
   try {
     const userId = req.user._id; // Assuming you have `req.user` populated with the authenticated user's details
-    const userCategories = await Category.find({ user: userId });
+    const userCategories = await Category.find({ user: userId }).sort({ createdAt: -1 }); // Sort by `createdAt` in descending order
 
     if (!userCategories.length) {
       return res
