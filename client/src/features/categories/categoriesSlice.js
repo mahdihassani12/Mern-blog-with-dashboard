@@ -18,7 +18,7 @@ export const createCategory = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Handle any error from the API
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data || error.message);
     }
   }
 );
@@ -40,7 +40,58 @@ export const deleteCategory = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Handle any error from the API
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
+// Define async thunk for fetching all categories
+export const fetchCategories = createAsyncThunk(
+  "categories/fetchCategories",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/categories");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
+// Define async thunk for fetching categories by authenticated user
+export const fetchCategoriesByUser = createAsyncThunk(
+  "categories/fetchCategoriesByUser",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/categories/categories", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
+// Define async thunk for editing a category
+export const editCategory = createAsyncThunk(
+  "categories/editCategory",
+  async ({ id, title, description, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `/api/categories/${id}`,
+        { title, description },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request headers
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
     }
   }
 );
@@ -96,6 +147,51 @@ const categoriesSlice = createSlice({
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to delete category";
+      })
+      // Fetch all Categories
+      .addCase(fetchCategories.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch categories";
+      })
+      // Fetch Categories by Auth User
+      .addCase(fetchCategoriesByUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCategoriesByUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategoriesByUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch user categories";
+      })
+      // Edit Category
+      .addCase(editCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.categories.findIndex(
+          (category) => category._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.categories[index] = action.payload; // Update the category in the state
+        }
+        state.success = "Category updated successfully!";
+      })
+      .addCase(editCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to edit category";
       });
   },
 });
