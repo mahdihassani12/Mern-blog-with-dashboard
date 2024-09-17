@@ -44,44 +44,34 @@ function Sidebar() {
             role="menu"
             data-accordion="false"
           >
-            {/* Dropdown menu */}
-            <li className={`nav-item ${isDropdownOpen ? "menu-open" : ""}`}>
-              <a
-                href="#"
-                className={`nav-link ${isDropdownOpen ? "active" : ""}`}
-                onClick={toggleDropdown}
-              >
-                <i className="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Starter Pages
-                  <i className="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link to="/active" className="nav-link active">
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Active Page</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/inactive" className="nav-link">
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Inactive Page</p>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            {/* Simple Link */}
             <li className="nav-item">
-              <Link to="/simple-link" className="nav-link">
-                <i className="nav-icon fas fa-th"></i>
-                <p>
-                  Simple Link
-                  <span className="right badge badge-danger">New</span>
-                </p>
+              <Link to="posts" className="nav-link">
+                <i className="nav-icon fas fa-pen-nib"></i>
+                <p>Posts</p>
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link to="categories" className="nav-link">
+                <i className="nav-icon fas fa-list"></i>
+                <p>Categories</p>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="tags" className="nav-link">
+                <i className="nav-icon fas fa-tags"></i>
+                <p>Tags</p>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/dashboard" className="nav-link">
+                <i className="nav-icon fas fa-users"></i>
+                <p>Users</p>
+              </Link>
+            </li>
+
             {/* Logout Button */}
             <li className="nav-item">
               <button
