@@ -105,6 +105,7 @@ const initialState = {
 };
 
 // Create the categories slice
+// Create the categories slice
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
@@ -192,7 +193,7 @@ const categoriesSlice = createSlice({
       .addCase(editCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to edit category";
-      });
+      })
   },
 });
 

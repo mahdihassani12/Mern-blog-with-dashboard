@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useOutletContext } from "react-router-dom";
-import { fetchCategoriesByUser } from "../../../features/categories/categoriesSlice"; 
+import { fetchCategoriesByUser, deleteCategory } from "../../../features/categories/categoriesSlice"; 
 
 function Index() {
   const dispatch = useDispatch();
@@ -27,6 +27,14 @@ function Index() {
   const truncateDescription = (description) => {
     const words = description.split(" ");
     return words.length > 5 ? words.slice(0, 5).join(" ") + "..." : description;
+  };
+
+  // Function to handle category deletion
+  const handleDelete = (categoryId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this category?");
+    if (confirmDelete) {
+      dispatch(deleteCategory({ categoryId, token }));
+    }
   };
 
   return (
@@ -64,10 +72,13 @@ function Index() {
                           <td>{category.title}</td>
                           <td>{truncateDescription(category.description)}</td>
                           <td>
-                            <button className="btn btn-sm btn-primary mr-2">
+                            <Link to={`edit/${ category._id }`} className="btn btn-sm btn-primary mr-2"> 
                               Edit
-                            </button>
-                            <button className="btn btn-sm btn-danger">
+                            </Link>
+                            <button 
+                              className="btn btn-sm btn-danger" 
+                              onClick={() => handleDelete(category._id)}
+                            >
                               Delete
                             </button>
                           </td>

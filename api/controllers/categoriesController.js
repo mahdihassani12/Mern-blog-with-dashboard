@@ -28,10 +28,30 @@ const categoriesByUser = async (req, res, next) => {
   }
 };
 
+// Fetch the category by id (protected function)
+const categoryById = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Get the category ID from the params
+    const userId = req.user._id; // Assuming `req.user` contains authenticated user details
+
+    // Check if the category exists and belongs to the user
+    const category = await Category.findOne({ _id: id, user: userId });
+
+    if (!category) {
+      return res.status(404).json({ message: "Category not found or not authorized" });
+    }
+
+    res.status(200).json(category);
+  } catch (error) {
+    next(error); // Pass the error to the error handler
+  }
+};
+
 // Edit an existing category by its ID (only for the category owner)
 const editCategory = async (req, res, next) => {
   try {
-    const { id, title, description } = req.body;
+    const { id } = req.params;
+    const { title, description } = req.body;
     const userId = req.user._id; // Assuming you have `req.user` populated with the authenticated user's details
 
     // Find the category by ID and userId (ensure user is editing their own category)
@@ -115,4 +135,5 @@ export {
   categories,
   categoriesByUser,
   editCategory,
+  categoryById
 };
