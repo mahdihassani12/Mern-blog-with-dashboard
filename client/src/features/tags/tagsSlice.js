@@ -17,7 +17,7 @@ export const createTag = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error creating the tag");
     }
   }
 );
@@ -38,7 +38,7 @@ export const deleteTag = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error deleting the tag");
     }
   }
 );
@@ -51,7 +51,7 @@ export const fetchTags = createAsyncThunk(
       const response = await axios.get("/api/tags");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error fetching the tags");
     }
   }
 );
@@ -66,9 +66,9 @@ export const fetchTagsByUser = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      return response.data;
+      return response.data; // This will return an empty array if no tags are found
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error fetching the tags");
     }
   }
 );
@@ -89,7 +89,7 @@ export const editTag = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error editing the tag");
     }
   }
 );

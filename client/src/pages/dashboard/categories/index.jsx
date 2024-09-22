@@ -53,7 +53,7 @@ function Index() {
             </div>
             <div className="card-body table-responsive p-0">
               {loading && <p>Loading...</p>}
-              {error && <p>Error fetching categories: {error}</p>}
+              {error && <p className="text-center">{error}</p>}
               {!loading && !error && (
                 <table className="table table-hover text-nowrap">
                   <thead>

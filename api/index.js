@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDB from "./utils/db.js";
 import errorHandler from "./middleware/errorHandler.js";
 
@@ -9,6 +10,7 @@ connectDB();
 const port = process.env.PORT || 4050;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(errorHandler);

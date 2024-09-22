@@ -4,6 +4,11 @@ import Category from "../models/Category.js";
 const categories = async (req, res, next) => {
   try {
     const allCategories = await Category.find().sort({ createdAt: -1 }); // Sort by `createdAt` in descending order
+
+    if (!allCategories.length) {
+      return res.status(200).json([]);
+    }
+
     res.status(200).json(allCategories);
   } catch (error) {
     next(error); // Pass the error to the error handler
@@ -17,9 +22,7 @@ const categoriesByUser = async (req, res, next) => {
     const userCategories = await Category.find({ user: userId }).sort({ createdAt: -1 }); // Sort by `createdAt` in descending order
 
     if (!userCategories.length) {
-      return res
-        .status(404)
-        .json({ message: "No categories found for this user" });
+      return res.status(200).json([]);
     }
 
     res.status(200).json(userCategories);

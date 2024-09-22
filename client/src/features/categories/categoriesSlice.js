@@ -18,7 +18,7 @@ export const createCategory = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Handle any error from the API
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error creating category");
     }
   }
 );
@@ -40,7 +40,7 @@ export const deleteCategory = createAsyncThunk(
       return response.data;
     } catch (error) {
       // Handle any error from the API
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error deleting the category");
     }
   }
 );
@@ -53,7 +53,7 @@ export const fetchCategories = createAsyncThunk(
       const response = await axios.get("/api/categories");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error fetching categories");
     }
   }
 );
@@ -70,7 +70,7 @@ export const fetchCategoriesByUser = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error fetching categories");
     }
   }
 );
@@ -91,7 +91,7 @@ export const editCategory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      return rejectWithValue("Error editing the tag");
     }
   }
 );
