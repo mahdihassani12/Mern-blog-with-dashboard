@@ -4,17 +4,14 @@ import axios from "axios";
 // Define async thunk for creating a post
 export const createPost = createAsyncThunk(
   "posts/createPost",
-  async ({ title, description, categories, tags, featuredImage, token }, { rejectWithValue }) => {
+  async ({ formData, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "/api/posts",
-        { title, description, categories, tags, featuredImage },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the request headers
-          },
-        }
-      );
+      const response = await axios.post("/api/posts", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+          "Content-Type": "multipart/form-data", // Important for file uploads
+        },
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue("Error creating post");

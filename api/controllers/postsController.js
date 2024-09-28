@@ -31,13 +31,17 @@ const getPostsByAuthUser = async (req, res, next) => {
 // Create a new post
 const createPost = async (req, res, next) => {
   try {
-    const { title, description, categories, tags } = req.body;
+    const { title, description, categories, tags } = req.body; // Ensure this is parsed correctly
     const userId = req.user._id;
 
     // Validate required fields
     if (!title || !description) {
       return res.status(400).json({ message: "Please add all fields" });
     }
+
+    // Convert categories and tags to ObjectId if they are provided
+    const categoryIds = categories ? categories.map((id) => mongoose.Types.ObjectId(id)) : [];
+    const tagIds = tags ? tags.map((id) => mongoose.Types.ObjectId(id)) : [];
 
     // Initialize featuredImage as an empty string
     let featuredImage = "";
@@ -64,8 +68,8 @@ const createPost = async (req, res, next) => {
     const post = await Post.create({
       title,
       description,
-      categories: categories || [],
-      tags: tags || [],
+      categories: categoryIds,
+      tags: tagIds,
       featuredImage,
       user: userId,
     });
